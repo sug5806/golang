@@ -2,12 +2,12 @@ package main
 
 import (
 	"fmt"
-	"github.com/calender"
+	"golang/10_capsulation_embedding/calendar"
 	"log"
 )
 
 func main() {
-	date := calender.Date{}
+	date := calendar.Date{}
 
 	err := date.SetYear(2019)
 	if err != nil {
