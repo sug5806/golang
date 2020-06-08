@@ -7,25 +7,24 @@ import (
 )
 
 func main() {
-	date := calendar.Date{}
-
-	err := date.SetYear(2019)
+	event := calendar.Event{}
+	err := event.SetYear(2019)
 	if err != nil {
 		log.Fatal(err)
 	}
 
-	err = date.SetMonth(5)
+	err = event.SetMonth(5)
 	if err != nil {
 		log.Fatal(err)
 	}
 
-	err = date.SetDay(14)
+	err = event.SetDay(27)
 	if err != nil {
 		log.Fatal(err)
 	}
 
-	fmt.Println(date.Year())
-	fmt.Println(date.Month())
-	fmt.Println(date.Day())
+	fmt.Println(event.Year())
+	fmt.Println(event.Month())
+	fmt.Println(event.Day())
 
 }
