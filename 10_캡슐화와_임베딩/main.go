@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"github.com/calender"
 	"log"
 )
@@ -22,4 +23,9 @@ func main() {
 	if err != nil {
 		log.Fatal(err)
 	}
+
+	fmt.Println(date.Year())
+	fmt.Println(date.Month())
+	fmt.Println(date.Day())
+
 }
