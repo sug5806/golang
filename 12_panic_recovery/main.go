@@ -1,15 +1,7 @@
 package main
 
-import (
-	"fmt"
-)
-
-func Socialize() {
-	defer fmt.Println("Goodbye!")
-	fmt.Println("Hellow!")
-	fmt.Println("Nice weather, eh?")
-}
+import "golang/12_panic_recovery/refrigerator"
 
 func main() {
-	Socialize()
+	refrigerator.Run()
 }
