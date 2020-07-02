@@ -13,6 +13,7 @@ func uploadFile(w http.ResponseWriter, r *http.Request) {
 	// 10MB limit
 	r.ParseMultipartForm(10 << 20)
 
+	// 주어진 키의 첫번째 파일을 가져온다
 	file, handler, err := r.FormFile("myFile")
 	if err != nil {
 		fmt.Println("Error Retrieving the File")
@@ -25,6 +26,7 @@ func uploadFile(w http.ResponseWriter, r *http.Request) {
 	fmt.Printf("File Szie: %+v\n", handler.Size)
 	fmt.Printf("Uploaded File: %+v\n", handler.Filename)
 
+	// temp-images 디렉토리에 해당 패턴으로 파일을 만든다
 	tempFile, err := ioutil.TempFile("temp-images", "upload-*.png")
 	if err != nil {
 		fmt.Println(err)
@@ -32,12 +34,14 @@ func uploadFile(w http.ResponseWriter, r *http.Request) {
 	}
 	defer tempFile.Close()
 
+	// form file을 읽는다
 	fileBytes, err := ioutil.ReadAll(file)
 	if err != nil {
 		fmt.Println(err)
 		return
 	}
 
+	// 임시파일에 file을 쓴다
 	_, err = tempFile.Write(fileBytes)
 
 	if err != nil {
@@ -50,7 +54,7 @@ func uploadFile(w http.ResponseWriter, r *http.Request) {
 
 func setupRoute() {
 	http.HandleFunc("/upload", uploadFile)
-	http.ListenAndServe(":8000", nil)
+	_ = http.ListenAndServe(":8000", nil)
 }
 
 func main() {
