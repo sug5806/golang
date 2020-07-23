@@ -38,7 +38,7 @@ func (u *userDao) GetUser(userId int64) (*User, *utils.ApplicationError) {
 
 	return nil, &utils.ApplicationError{
 		Message:    fmt.Sprintf("user %v does not exists", userId),
-		StatusCode: http.StatusBadRequest,
-		Code:       "bad_request",
+		StatusCode: http.StatusInternalServerError,
+		Code:       "not_found",
 	}
 }
