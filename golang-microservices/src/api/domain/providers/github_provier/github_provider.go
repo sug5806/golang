@@ -26,7 +26,6 @@ func CreateRepo(accessToken string, request github.CreateRepoRequest) (*github.C
 	headers.Set(headerAuthorization, getAuthorizationHeader(accessToken))
 
 	response, err := rest_client.Post(urlCreateRepo, request, headers)
-
 	if err != nil {
 		log.Printf("Error when trying to create new repo in gihub : %s\n", err.Error())
 		return nil, &github.GithubErrorResponse{
@@ -39,6 +38,7 @@ func CreateRepo(accessToken string, request github.CreateRepoRequest) (*github.C
 	defer response.Body.Close()
 
 	if err != nil {
+		log.Println("err : ", err)
 		return nil, &github.GithubErrorResponse{
 			StatusCode: http.StatusInternalServerError,
 			Message:    "invalid response body",
