@@ -21,14 +21,14 @@ func getAuthorizationHeader(accessToken string) string {
 	return fmt.Sprintf(headerAuthorizationFormat, accessToken)
 }
 
-func CreateRepo(accessToken string, request github.CreateRepoRequest) (*github.CreateRepoResponse, *github.GithubErrorResponse) {
+func CreateRepo(accessToken string, request github.CreateRepoRequest) (*github.CreateRepoResponse, *github.ErrorResponse) {
 	headers := http.Header{}
 	headers.Set(headerAuthorization, getAuthorizationHeader(accessToken))
 
 	response, err := rest_client.Post(urlCreateRepo, request, headers)
 	if err != nil {
 		log.Printf("Error when trying to create new repo in gihub : %s\n", err.Error())
-		return nil, &github.GithubErrorResponse{
+		return nil, &github.ErrorResponse{
 			StatusCode: http.StatusInternalServerError,
 			Message:    err.Error(),
 		}
@@ -39,16 +39,16 @@ func CreateRepo(accessToken string, request github.CreateRepoRequest) (*github.C
 
 	if err != nil {
 		log.Println("err : ", err)
-		return nil, &github.GithubErrorResponse{
+		return nil, &github.ErrorResponse{
 			StatusCode: http.StatusInternalServerError,
 			Message:    "invalid response body",
 		}
 	}
 
 	if response.StatusCode > 299 {
-		var errResponse github.GithubErrorResponse
+		var errResponse github.ErrorResponse
 		if err := json.Unmarshal(bytes, &errResponse); err != nil {
-			return nil, &github.GithubErrorResponse{
+			return nil, &github.ErrorResponse{
 				StatusCode: http.StatusInternalServerError,
 				Message:    "invalid json response body",
 			}
@@ -60,7 +60,7 @@ func CreateRepo(accessToken string, request github.CreateRepoRequest) (*github.C
 	var result github.CreateRepoResponse
 	if err := json.Unmarshal(bytes, &result); err != nil {
 		log.Printf("Error when trying to unmarsahl create repo successful resopnse : %s\n", err.Error())
-		return nil, &github.GithubErrorResponse{
+		return nil, &github.ErrorResponse{
 			StatusCode: http.StatusInternalServerError,
 			Message:    "json unmarshal fail github create repo response",
 		}
