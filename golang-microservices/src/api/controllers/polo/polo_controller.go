@@ -9,6 +9,6 @@ const (
 	polo = "polo"
 )
 
-func Polo(c *gin.Context) {
+func Marco(c *gin.Context) {
 	c.String(http.StatusOK, polo)
 }
