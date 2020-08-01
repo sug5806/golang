@@ -87,6 +87,19 @@ func TestCreateRepoInvalidErrorInterface(t *testing.T) {
 	assert.EqualValues(t, "invalid json response body", err.Message)
 }
 
+func TestCreateRepoUnauthorized(t *testing.T) {
+	rest_client.FlushMockups()
+	rest_client.AddMockup(rest_client.Mock{
+		Url:        "https://api.github.com/user/repos",
+		HttpMethod: http.MethodPost,
+		Response: &http.Response{
+			StatusCode: http.StatusUnauthorized,
+			Body:       ioutil.NopCloser(strings.NewReader(`{"message": "Requires authentication", "documentation_url": "https://developer.githubcom/v3/repos/#create"}`)),
+		},
+		Err: nil,
+	})
+}
+
 func TestCreateRepoInvalidSuccessResponse(t *testing.T) {
 	rest_client.FlushMockups()
 
