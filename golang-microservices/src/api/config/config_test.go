@@ -12,5 +12,5 @@ func TestConst(t *testing.T) {
 func TestGetGithubAccessToken(t *testing.T) {
 	token := GetGithubAccessToken()
 
-	assert.EqualValues(t, "", token)
+	assert.EqualValues(t, "123", token)
 }

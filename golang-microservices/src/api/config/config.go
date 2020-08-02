@@ -1,13 +1,15 @@
 package config
 
-import "os"
+import (
+	"golang/golang-microservices/src/api/domain/github"
+)
 
 const (
 	apiGithubAccessToken = "SECRET_GITHUB_ACCESS_TOKEN"
 )
 
 var (
-	githubAccessToken = os.Getenv(apiGithubAccessToken)
+	githubAccessToken = github.GITHUB_TOKEN
 )
 
 func GetGithubAccessToken() string {
