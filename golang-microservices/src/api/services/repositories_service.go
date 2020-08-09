@@ -97,7 +97,6 @@ func (s *reposService) handleRepoResults(wg *sync.WaitGroup, input chan reposito
 			Error:    incomingEvent.Error,
 		}
 		results.Results = append(results.Results, repoResult)
-
 		wg.Done()
 	}
 	output <- results
